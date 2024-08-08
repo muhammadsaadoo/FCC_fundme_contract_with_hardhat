@@ -1,0 +1,101 @@
+//yarn add --dev hardhat
+//yarn hardhat
+//yard add --dev @chainlin/contracts
+ //yarn hardhat compile
+
+ install hardhat-deploy-package 
+
+ creta folder and scripting  file deploy/fundme.js
+ //yarn hardhat deploy
+
+PROBLEM
+1-if we deploy on hardhat it will no longer exist
+2-and if we deploy on hardhat local host the chain link price cant be fetched 
+we use mock for both these problems
+solution ..Forking a Blockchain!
+
+
+
+
+ mocking and helper-hardhat-configu
+mocking---is used for unit test ..  mocking is creating objects that simulate the behaviour of real objects.
+mocks are the contract used insted of datafeed contracts if they are not working...
+like hardhart or localhost dont have pricefeed so we use mocks
+
+
+aave protocol
+   helper-hardhat-config
+https://github.com/aave/aave-v3-core
+     create a file helper-hardhat-config.js
+     adding chainid and eth/usd datafeed
+     sometimes if there is no datafeed on that chain so we use mock contracts
+     deploy mock script in deploy folder like 00-deploy-mock.js
+     write deploy script
+     and in   helper-hardhat-config mention for which networks we use mocks like {hardhat and localhost}
+
+create a test folder in contracts
+and create a solidty file in test folder like MockV3Aggregator.sol
+this will be our own fake pricefeed contract
+
+mock from github
+https://github.com/smartcontractkit/chainlink/blob/develop/contracts/src/v0.8/tests/MockV3Aggregator.sol
+
+//verify it  if deploy on testnet
+create utils folder
+create file in utils folder verify.js
+create verify function in it and export it
+deploy on testnet 
+
+solidity guids
+visit solidity guids
+error code name --->contractname+errorname
+
+natSpeck
+//@title description about contracts
+//@author authors name /description
+//@notice-->information to the other peoples about contract
+//@dev-->information to the other developers about contract
+.............................................
+
+testing fundme contract
+create two folders staging and unit in test folder
+unit-->test portions of code like 
+       test on local hardhat or Forked 
+       create file fundme.test.js
+       1.deploy contract
+         fixture method-->for deploy whole deploy folder
+         getContract method --> gives move recent deployed contract
+       //yarn hardhat test
+       //yarn hardhat coverage
+       1.test constructor
+         create new describe fuinction
+staging/integration-->after running the unit test it can be done like test  on testnetwork like sepolia
+
+//problems in TESTING
+          mock did not give address so use mockv3aggregator.trarget
+          0 passing -->uninstall ethers//yarn uninstall ethers
+
+Gas-Astimation
+    how much gas taken by contract and function calls
+    use gas reporter
+
+Gas-Optimization
+    1-use of  global variable takes gas
+    2-use opcode to astimate the gas
+    3-every function like (orr, and, multiply, divide etc) they all take gas resource=--->evm-opcodes
+    4-like save word in storage (global variable) and read word/load word from storage take a lot of gas upto 20000
+    5-immutable and constant variables are not storage variable
+    6-if a storage variable is used many times get that variable into new memory variable temporarly and than 
+    --take value from that memory variable memory variable calling is cheaper than storage
+    7-Mapping cant be in memory variable
+    8-public keyword also take more gas than priate si keep private and set getter and setter
+    
+Staging Test/integratin test
+//yarn hardhat test --network sepolia
+     
+Scripting on Local Node
+    create file fund.js in script folder  
+    //yarn hardhat Node
+    //yarn hardhat run scripts/fund.js --network localhost   
+Add scripts to package.json
+   we write command in scripts for shortcut     
